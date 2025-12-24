@@ -22,7 +22,7 @@ env:
   REPO_NAME: "ubuntu-docker-base"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
   UBUNTU_VERSION: 24.04
-  BUILD_FROM_IMAGE: "ubuntu:${UBUNTU_VERSION}"
+  BUILD_FROM_IMAGE_PREFIX: "ubuntu"
   DEFAULT_TAG: "latest"
 
 concurrency:
@@ -103,7 +103,7 @@ jobs:
           # Postfix image name with -custom to make it a little more descriptive
           # Syntax: https://docs.github.com/en/actions/learn-github-actions/expressions#format
           build-args: |
-            BUILD_FROM_IMAGE=${{ env.BUILD_FROM_IMAGE }}
+            BUILD_FROM_IMAGE=${{ env.BUILD_FROM_IMAGE_PREFIX }}:${{ env.UBUNTU_VERSION }}
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
