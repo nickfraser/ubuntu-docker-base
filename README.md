@@ -21,4 +21,8 @@ A local version of this image can be built as follows:
 
 ## Using a Pre-Built Image
 
-TODO
+Alternatively, the latest build of this image can be downloaded as follows:
+
+```bash
+docker pull ghcr.io/nickfraser/ubuntu:24.04
+```
