@@ -3,7 +3,7 @@
 set -ex
 
 TIMESTAMP=`date +%Y%m%d%H%M`
-IMAGE_TAG_PREFIX=$USER/ubuntu
+IMAGE_TAG_PREFIX=$USER/ubuntu-base
 IMAGE_TAG_VERSION=24.04
 
 # BUILD ARGUMENTS:

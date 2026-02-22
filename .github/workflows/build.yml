@@ -18,7 +18,7 @@ env:
   IMAGE_DESC: "Ubuntu"
   IMAGE_KEYWORDS: "ubuntu"
   IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/2337578?v=4&size=64"  # Put your own image here for a fancy profile on https://artifacthub.io/!
-  IMAGE_NAME: "ubuntu"  # output image name, usually same as repo name
+  IMAGE_NAME: "ubuntu-base"  # output image name, usually same as repo name
   REPO_NAME: "ubuntu-docker-base"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
   UBUNTU_VERSION: 24.04
