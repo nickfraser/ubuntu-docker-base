@@ -31,8 +31,17 @@ concurrency:
 
 jobs:
   build_push:
-    name: Build and push image
+    name: Build and push image (${{ matrix.ubuntu_version }})
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu_version:
+          - '24.04'
+          - '25.04'
+
+    env:
+      UBUNTU_VERSION: ${{ matrix.ubuntu_version }}
 
     permissions:
       contents: read
@@ -71,7 +80,7 @@ jobs:
           # This generates all the tags for your image, you can add custom tags here too!
           # Default tags are "$DEFAULT_TAG" and "$DEFAULT_TAG.$date".
           tags: |
-            type=raw,value=${{ env.DEFAULT_TAG }}
+            type=raw,value=${{ env.DEFAULT_TAG }},enable=${{ matrix.ubuntu_version == '25.04' }}
             type=raw,value=${{ env.UBUNTU_VERSION }}
             type=raw,value=${{ env.UBUNTU_VERSION }}.{{date 'YYYYMMDD'}}
             type=sha,enable=${{ github.event_name == 'pull_request' }}
@@ -85,7 +94,7 @@ jobs:
             org.opencontainers.image.title=${{ env.REPO_NAME }}
             org.opencontainers.image.url=https://github.com/${{ github.repository_owner }}/${{ env.REPO_NAME }}
             org.opencontainers.image.vendor=${{ github.repository_owner }}
-            org.opencontainers.image.version=${{ env.DEFAULT_TAG }}.{{date 'YYYYMMDD'}}
+            org.opencontainers.image.version=${{ env.UBUNTU_VERSION }}.{{date 'YYYYMMDD'}}
             io.artifacthub.package.deprecated=false
             io.artifacthub.package.keywords=${{ env.IMAGE_KEYWORDS }}
             io.artifacthub.package.license=Apache-2.0
