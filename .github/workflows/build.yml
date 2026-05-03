@@ -21,7 +21,7 @@ env:
   IMAGE_NAME: "ubuntu-base"  # output image name, usually same as repo name
   REPO_NAME: "ubuntu-docker-base"
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
-  UBUNTU_VERSION: 24.04
+  LATEST_VERSION: 26.04
   BUILD_FROM_IMAGE_PREFIX: "ubuntu"
   DEFAULT_TAG: "latest"
 
@@ -38,7 +38,7 @@ jobs:
       matrix:
         ubuntu_version:
           - '24.04'
-          - '25.04'
+          - '26.04'
 
     env:
       UBUNTU_VERSION: ${{ matrix.ubuntu_version }}
@@ -80,7 +80,7 @@ jobs:
           # This generates all the tags for your image, you can add custom tags here too!
           # Default tags are "$DEFAULT_TAG" and "$DEFAULT_TAG.$date".
           tags: |
-            type=raw,value=${{ env.DEFAULT_TAG }},enable=${{ matrix.ubuntu_version == '25.04' }}
+            type=raw,value=${{ env.DEFAULT_TAG }},enable=${{ matrix.ubuntu_version == env.LATEST_VERSION }}
             type=raw,value=${{ env.UBUNTU_VERSION }}
             type=raw,value=${{ env.UBUNTU_VERSION }}.{{date 'YYYYMMDD'}}
             type=sha,enable=${{ github.event_name == 'pull_request' }}
